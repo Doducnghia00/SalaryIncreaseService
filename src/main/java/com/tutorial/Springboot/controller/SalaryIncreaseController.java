@@ -13,7 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping (path = "/salary-increase")
 public class SalaryIncreaseController {
-    Long eventId = 0l;
+    Long eventId = 0L;
     boolean checkCondition = false;
     boolean checkDate = false;
     @Autowired
@@ -168,7 +168,7 @@ public class SalaryIncreaseController {
 
              dateStart =  event.getStartDate();
              dateEnd = event.getEndDate();
-             eventId = event.getId();
+             eventId = event.getEventId();
             //System.out.println(date + " "  +dateStart + " " + dateEnd);
             if(date.before(dateEnd) && date.after(dateStart)){
                 checkDate = true;
@@ -238,5 +238,10 @@ public class SalaryIncreaseController {
     List<TestModel> getAll(){
         return testRepository.findAll();
     }
+//    ResponseEntity<ResponseObject> getSomething(){
+//       return ResponseEntity.status(HttpStatus.OK).body(
+//               new ResponseObject("ok","message",  testRepository.findAll())
+//       );
+//    }
 
 }

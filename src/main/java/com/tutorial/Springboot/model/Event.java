@@ -2,26 +2,27 @@ package com.tutorial.Springboot.model;
 
 
 import javax.persistence.*;
-import java.util.Date;
+
 @Entity
 @Table(name = "event")
 public class Event {
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO) // auto-increment
-    private Long id;
+    private Long eventId;
     private java.sql.Date startDate, endDate;
     @Column(nullable = false, unique = true, length = 300)
     private String nameEvent;
+    //private String
 
 
     public Event() {
     }
 
-    public Event(Long id,
+    public Event(Long eventId,
                  java.sql.Date startDate,
                  java.sql.Date endDate,
                  String nameEvent) {
-        this.id = id;
+        this.eventId = eventId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.nameEvent = nameEvent;
@@ -35,12 +36,12 @@ public class Event {
         this.nameEvent = nameEvent;
     }
 
-    public Long getId() {
-        return id;
+    public Long getEventId() {
+        return eventId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
     }
 
     public java.sql.Date getStartDate() {
