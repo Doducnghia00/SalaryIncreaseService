@@ -93,4 +93,6 @@ public class SalaryIncreaseForEmployees {
     List<Event> getAllEvent(){
         return eventRepository.findAll();
     }
+
+
 }
