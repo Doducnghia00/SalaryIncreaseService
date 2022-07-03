@@ -11,20 +11,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/event")
+@RequestMapping(path = "event")
 public class EventController {
     @Autowired
     private EventRepository eventRepository;
 
 
-    @GetMapping("")
+    @GetMapping("/event")
     List<Event> getAllEvent(){
         return eventRepository.findAll();
     }
+//    public List<Event> getAllEvent(){
+//        List<Event> eventList = new ArrayList<>();
+//        eventList.add(new Event(1L,"E1"));
+//        return eventList;
+//    }
 
     @GetMapping("/{id}")
     ResponseEntity<ResponseObject> getEvent(@PathVariable Long id){
@@ -36,5 +43,10 @@ public class EventController {
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                         new ResponseObject("false","Cannot find  event with id = " + id, "")
                 );
+    }
+
+    @GetMapping("/testCall")
+    String test(){
+        return "HELLO ";
     }
 }

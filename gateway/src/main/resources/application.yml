@@ -1,0 +1,70 @@
+server:
+  port: 9090
+eureka:
+  instance:
+    hostname: localhost
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: employees
+          uri: lb://employee-service
+          predicates:
+            - Path=/timesheet/**
+          filters:
+            - RewritePath=/service(?<segment>/?.*), $\{segment}
+            - name: Logging
+              args:
+                baseMessage: My Custom Message
+                preLogger: true
+                postLogger: true
+        - id: event
+          uri: lb://event-service
+          predicates:
+            - Path=/event/**  #/event
+          filters:
+            - RewritePath=/service(?<segment>/?.*), $\{segment}
+            - name: Logging
+              args:
+                baseMessage: My Custom Message
+                preLogger: true
+                postLogger: true
+        - id: salaryservice
+          uri: lb://salary-service
+          predicates:
+            - Path=/salary/**
+          filters:
+            - RewritePath=/service(?<segment>/?.*), $\{segment}
+            - name: Logging
+              args:
+                baseMessage: My Custom Message
+                preLogger: true
+                postLogger: true
+        - id: salaryincreaseservice
+          uri: lb://salary-increase-service
+          predicates:
+            - Path=/task/**
+          filters:
+            - RewritePath=/service(?<segment>/?.*), $\{segment}
+            - name: Logging
+              args:
+                baseMessage: My Custom Message
+                preLogger: true
+                postLogger: true
+        - id: testservice
+            uri: lb://test-service
+            predicates:
+              - Path=/test/**
+            filters:
+              - RewritePath=/service(?<segment>/?.*), $\{segment}
+              - name: Logging
+                args:
+                  baseMessage: My Custom Message
+                  preLogger: true
+                  postLogger: true
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG

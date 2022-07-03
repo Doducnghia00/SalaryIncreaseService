@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping (path = "/salary-increase")
+@RequestMapping ("salary")
 public class SalaryIncreaseController {
     Long eventId = 0L;
     boolean checkCondition = false;
@@ -107,7 +107,7 @@ public class SalaryIncreaseController {
         return conditionRepository.findAll();
     }
 
-    @PostMapping("condition")
+    @PostMapping("/condition")
     ResponseEntity<ResponseObject> addCondition(@RequestBody Condition condition){
         List<Condition> foundCondition = conditionRepository.findByLevelName(condition.getLevelName().trim());
         if(foundCondition.size() > 0){
@@ -118,6 +118,18 @@ public class SalaryIncreaseController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("ok","Insert Condition successfully", conditionRepository.save(condition))
         );
+    }
+
+    @GetMapping("/condition/{id}")
+    ResponseEntity<ResponseObject> getConditionById(@PathVariable Long id){
+       Optional<Condition> foundCondition = conditionRepository.findById(id);
+        return foundCondition.isPresent() ?
+                ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("ok","Query successfully", foundCondition)
+                ):
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new ResponseObject("false","Cannot find  condition with id = " + id, "")
+                );
     }
 
     @PutMapping("condition/{id}")

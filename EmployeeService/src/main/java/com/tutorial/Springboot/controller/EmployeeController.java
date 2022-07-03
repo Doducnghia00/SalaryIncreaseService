@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/Timesheet")
+//@RequestMapping("/timesheet")
+@RequestMapping("timesheet")
 public class EmployeeController {
     @Autowired
     private EmployeeTimesheetRepository repository;

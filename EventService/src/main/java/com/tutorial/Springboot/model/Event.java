@@ -36,6 +36,11 @@ public class Event {
         this.nameEvent = nameEvent;
     }
 
+    public Event(Long eventId, String nameEvent) {
+        this.eventId = eventId;
+        this.nameEvent = nameEvent;
+    }
+
     public Long getEventId() {
         return eventId;
     }
